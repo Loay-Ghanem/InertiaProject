@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --radius-lg: 0.75rem;
+    --radius-md: 0.5rem;
+    --radius-sm: 0.25rem;
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+}
+
+:root {
+    /* Light Mode Colors */
+    --background: oklch(0.98 0.03 230); /* Very light cool background */
+    --foreground: oklch(0.2 0.03 250); /* Deep slate text */
+    
+    --card: oklch(1 0.02 240); /* Clean white card */
+    --card-foreground: oklch(0.2 0.02 250); /* Slate text on card */
+    
+    --primary: oklch(0.55 0.15 250); /* Vibrant cool blue */
+    --primary-foreground: oklch(0.98 0.02 240); /* White text */
+    
+    --secondary: oklch(0.92 0.05 230); /* Subtle light blue-gray */
+    --secondary-foreground: oklch(0.25 0.02 250);
+    
+    --border: oklch(0.85 0.02 240); /* Soft border */
+    --input: oklch(0.96 0.02 230);
+    --ring: oklch(0.6 0.12 250); /* Accent ring blue */
+}
+
+.dark {
+    /* Dark Mode Colors */
+    --background: oklch(0.15 0.02 250); /* Deep navy-slate */
+    --foreground: oklch(0.97 0.02 240); /* Almost white text */
+    
+    --card: oklch(0.2 0.03 240); /* Slightly lighter than bg */
+    --card-foreground: oklch(0.97 0.02 240);
+    
+    --primary: oklch(0.45 0.15 250); /* Rich vibrant blue */
+    --primary-foreground: oklch(0.99 0.02 240);
+    
+    --secondary: oklch(0.28 0.04 230); /* Muted steel-blue */
+    --secondary-foreground: oklch(0.98 0.02 240);
+    
+    --border: oklch(0.25 0.02 240);
+    --input: oklch(0.22 0.02 240);
+    --ring: oklch(0.55 0.12 250);
+}
+
+@layer base {
+    body {
+        @apply bg-background text-foreground font-sans transition-colors duration-300;
+    }
+
+    a {
+        @apply text-primary hover:text-primary-foreground transition-colors duration-300;
+    }
+
+    button {
+        @apply rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 shadow-sm;
+    }
+
+    .card {
+        @apply rounded-xl bg-card text-card-foreground shadow-md hover:shadow-lg transition-shadow duration-300;
+    }
+}
+
