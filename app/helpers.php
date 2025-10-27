@@ -16,3 +16,20 @@ if (!function_exists('nationalFormat')) {
         return $phone;
     }
 }
+
+if (!function_exists('fileDirectoryStructure')) {
+    function fileDirectoryStructure($path): string
+    {
+        $format = now()->format('y/m/d');
+
+        return "$format/$path";
+    }
+}
+
+if (!function_exists('uploadStorage')) {
+    function uploadStorage($path): string
+    {
+        return asset('storage/' . $path);
+    }
+}
+
