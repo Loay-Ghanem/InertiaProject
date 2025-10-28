@@ -19,13 +19,22 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function getAllMainCategories()
+    public static function getAllMainCategories()
     {
-        return $this->whereNull('parent_id')->get();
+        return Category::query()
+            ->whereNull('parent_id')
+            ->get();
     }
 
     public function getAllSubCategories()
     {
         return $this->whereNotNull('parent_id')->get();
+    }
+
+    public static function getSubCategoryFromMainCategory($id)
+    {
+        return Category::query()
+            ->where('parent_id', '=', $id)
+            ->get();
     }
 }
