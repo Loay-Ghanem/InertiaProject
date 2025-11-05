@@ -54,9 +54,16 @@ class WebController extends Controller
     public function item(string $item_id)
     {
         $item = Item::findOrFail($item_id);
-        
+
+        $relatedItems = Item::query()
+            ->where('category_id', '=', $item->category_id)
+            ->where('id', '<>', $item->id)
+            ->limit(4)
+            ->get();
+
         return inertia('Items/item', [
-            'item' => $item ?? null
+            'item'         => $item,
+            'relatedItems' => $relatedItems
         ]);
     }
 }
