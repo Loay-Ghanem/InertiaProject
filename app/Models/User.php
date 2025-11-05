@@ -4,21 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Filament\Forms\Components\Radio;
-use Illuminate\Support\Facades\Hash;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
+use Filament\Panel;
+use App\UserFilamentBuilder;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Notifications\Notifiable;
-use Filament\Forms\Components\FileUpload;
-use Filament\Tables\Columns\ToggleColumn;
+use Filament\Models\Contracts\FilamentUser;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, UserFilamentBuilder;
 
     /**
      * The attributes that are mass assignable.
@@ -53,62 +52,21 @@ class User extends Authenticatable
         ];
     }
 
-    public static function getUserFormSchema($extraAttr = []): array
+    public function canAccessPanel(Panel $panel): bool
     {
-        $extraAttr[] =
-            Radio::make('is_active')
-                ->label('Is This Active User?')
-                ->boolean();
-
-        $schema = [
-            TextInput::make('name')
-                ->label('Name')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('email')
-                ->label('Email')
-                ->email()
-                ->required()
-                ->unique(ignoreRecord: true),
-            TextInput::make('password')
-                ->password()
-                ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                ->dehydrated(fn($state) => filled($state))
-                ->required(fn(string $context): bool => $context === 'create'),
-            TextInput::make('phone')
-                ->label('Phone Number')
-                ->required()
-                ->maxLength(13),
-        ];
-
-        $attrs = array_merge($schema, $extraAttr);
-
-        return $attrs;
+        return true;
     }
 
-    public static function tableSchema($extraAttr = [])
+    public function getFilamentAvatarUrl(): ?string
     {
-        $extraAttr [] =
-            ToggleColumn::make('is_active')
-                ->onColor('success')
-                ->offColor('danger');
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
 
-        $schema = [
-            TextColumn::make('name')
-                ->label('Name'),
-            TextColumn::make('email')
-                ->label('Email')
-                ->copyable()
-                ->copyMessage("Email Copied")
-                ->copyMessageDuration(1000),
-            TextColumn::make('phone')
-                ->label('Phone Number')
-                ->copyable()
-                ->copyMessage("Phone number Copied")
-                ->copyMessageDuration(1000),
-        ];
-
-        $attrs = array_merge($schema, $extraAttr);
-        return $attrs;
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'factory_id');
     }
 }

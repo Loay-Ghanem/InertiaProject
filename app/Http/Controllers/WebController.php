@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Inertia\Inertia;
 use App\Models\Category;
 
@@ -52,7 +53,7 @@ class WebController extends Controller
 
     public function item(string $item_id)
     {
-        // $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($item_id);
         
         return inertia('Items/item', [
             'item' => $item ?? null

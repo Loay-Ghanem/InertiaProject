@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Item;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -36,5 +37,10 @@ class Category extends Model
         return Category::query()
             ->where('parent_id', '=', $id)
             ->get();
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 }

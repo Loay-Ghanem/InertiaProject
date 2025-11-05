@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Resources\Users\Factories\Schemas;
 use App\Models\User;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\FileUpload;
 
 class FactoryForm
 {
@@ -17,10 +16,6 @@ class FactoryForm
     private static function formSchema()
     {
         $attr = [
-            FileUpload::make('image')
-                ->image()
-                ->directory(fileDirectoryStructure('user/factory/image'))
-                ->columnSpanFull(),
             Hidden::make('user_type')
                 ->default('customer'),
         ];

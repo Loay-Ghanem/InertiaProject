@@ -13,6 +13,9 @@ import Logo from "@/components/logo"
 import ModeToggle from "@/components/ui/ModeToggle"
 import { usePage } from "@inertiajs/react"
 import TextLink from '@/components/text-link';
+import GuestNav from '@/components/ui/GuestNav'
+import CustomerNav from '@/components/ui/CustomerNav'
+import FactoryNav from '@/components/ui/FactoryNav'
 
 export default function Navbar() {
     const auth = usePage().props.auth.user;
@@ -40,31 +43,18 @@ export default function Navbar() {
                             <AnimatedLink href={route('contact')}>Contact</AnimatedLink>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
+                    {auth && (
+                        auth.user_type === 'Customer'
+                            ? <CustomerNav />
+                            : <FactoryNav />
+                    )}
                     <NavigationMenuItem className="ml-auto">
                         <ModeToggle />
                     </NavigationMenuItem>
                 </NavigationMenuList>
+
                 {!auth ? (
-                    <NavigationMenuList className="flex-wrap gap-4">
-                        <NavigationMenuItem>
-                            <AnimatedLink
-                                href={route('login')}
-                                className="ml-auto text-primary font-medium transition-all duration-300 
-                            hover:text-blue-400 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.7)]"
-                            >
-                                Login
-                            </AnimatedLink>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>
-                            <AnimatedLink
-                                href={route('register')}
-                                className="ml-auto text-primary font-medium transition-all duration-300 
-                            hover:text-blue-400 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.7)]"
-                            >
-                                Register
-                            </AnimatedLink>
-                        </NavigationMenuItem>
-                    </NavigationMenuList>
+                    <GuestNav />
                 ) : (
                     <NavigationMenuList className="flex-wrap gap-4">
                         <NavigationMenuItem>

@@ -14,6 +14,7 @@ use App\Filament\Admin\Resources\Users\Factories\Pages\CreateFactory;
 use App\Filament\Admin\Resources\Users\Factories\Pages\ListFactories;
 use App\Filament\Admin\Resources\Users\Factories\Schemas\FactoryForm;
 use App\Filament\Admin\Resources\Users\Factories\Tables\FactoriesTable;
+use App\Filament\Admin\Resources\Users\Factories\RelationManagers\ItemsRelationManager;
 
 class FactoryResource extends Resource
 {
@@ -40,6 +41,13 @@ class FactoryResource extends Resource
     public static function table(Table $table): Table
     {
         return FactoriesTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            ItemsRelationManager::class
+        ];
     }
 
     public static function getPages(): array

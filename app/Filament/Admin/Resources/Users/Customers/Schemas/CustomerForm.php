@@ -17,10 +17,6 @@ class CustomerForm
     private static function formSchema()
     {
         $attr = [
-            FileUpload::make('image')
-                ->image()
-                ->directory(fileDirectoryStructure('user/customer/image'))
-                ->columnSpanFull(),
             Hidden::make('user_type')
                 ->default('customer'),
         ];

@@ -9,7 +9,7 @@ export default function Home({ mainCategories = null }) {
             < div className="flex justify-center flex-wrap items-start flex-1 gap-3">
                 {mainCategories != null
                     ? (mainCategories.map(category => (
-                        <Link href={route("main-category", { id: category.id})}>
+                        <Link key={category.id} href={route("main-category", { id: category.id})}>
                             <div key={category.id}
                                 className="max-w-sm my-3  mb-20 bg-white flex flex-col items-center border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                                 <img className="rounded-t-lg h-50" height="50" src={`${assetStorage + "/" + category.image}`} alt="category img" />
