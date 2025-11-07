@@ -21,6 +21,8 @@ Route::middleware(NotAdmin::class)
                 Route::get('main-category/{id}', 'mainCategory')->name('main-category');
                 Route::get('sub-category/{id}', 'subCategory')->name('sub-category');
                 Route::get('item/{id}', 'item')->name('item');
+                Route::get('profile', 'profile')->name('profile');
+                Route::post('update-profile', 'updateProfile')->name('update-profile');
             });
 
         require __DIR__ . '/settings.php';

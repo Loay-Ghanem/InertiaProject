@@ -12,7 +12,7 @@ if (!function_exists('nationalFormat')) {
             $phone = new PhoneNumber($data, 'JO');
             $phone = (string) $phone->formatForMobileDialingInCountry('BE');
         } catch (\Exception $e) {
-            $phone = $data;
+            return null;
         }
 
         return $phone;
