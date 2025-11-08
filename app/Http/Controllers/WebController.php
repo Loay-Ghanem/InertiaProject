@@ -96,7 +96,9 @@ class WebController extends Controller
             'phone' => $request->phone,
             'image' => $image ?? $user->image,
         ]);
-        
-        return redirect()->route('profile')->with('success', 'profile updated successfully');
+
+        return redirect()
+            ->route('profile')
+            ->with('success', 'profile updated successfully');
     }
 }

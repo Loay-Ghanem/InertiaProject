@@ -12,6 +12,7 @@ import {
     User,
     XCircle,
 } from 'lucide-react';
+import SuccessMessage from '@/components/SuccessMessage';
 
 export default function Profile() {
     const { auth } = usePage().props;
@@ -57,8 +58,8 @@ export default function Profile() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-4 py-12 sm:px-6 lg:px-8 dark:from-gray-900 dark:to-gray-800">
+            <SuccessMessage />
             <div className="mx-auto max-w-4xl">
-                {/* Header Card */}
                 <div className="mb-8 overflow-hidden rounded-2xl bg-white shadow-xl dark:bg-gray-800">
                     <div className="h-32 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
                     <div className="relative px-6 pb-6">

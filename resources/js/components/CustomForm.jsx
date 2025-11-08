@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/react";
 
-export default function CustomForm({ action, className = "space-y-6", children, inputData }) {
+export default function CustomForm({ action, className = "space-y-6", children, inputData = {} }) {
 
     const { data, setData, post, processing, errors } = useForm(inputData);
 
@@ -11,7 +11,10 @@ export default function CustomForm({ action, className = "space-y-6", children, 
 
     return (
         <form className={className} onSubmit={submitForm}>
-            {children({ data, setData, errors, processing })}
+            {typeof children === "function"
+                ? children({ data, setData, errors, processing })
+                : children
+            }
         </form>
     );
 }
